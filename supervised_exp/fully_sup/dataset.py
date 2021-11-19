@@ -74,7 +74,7 @@ def get_dataset(train_percent = 0.1,root_dir = '../../data'):
     train_set,unlabel_set = torch.utils.data.random_split(training_set,[train_size,unlabel_size],
                                                           generator=torch.Generator().manual_seed(1598))
     
-    return {'train_set': train_set, 'val_set': val_set, 'test_set': test_set}
+    return {'train_set': train_set, 'val_set': val_set, 'test_set': test_set,'unlabel_set': unlabel_set}
     
 
 if __name__ == "__main__":

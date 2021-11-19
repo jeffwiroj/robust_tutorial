@@ -25,7 +25,7 @@ def get_config():
     parser.add_argument('--base_lr',default = 0.05,type = int, help = 'base learning rate')
     parser.add_argument('--wd',default = 1e-5,type = float, help = 'Weight Decay')
     parser.add_argument('--lambda',default = 5e-3,type = float, help = 'BT Lambda Parameter')
-    parser.add_argument('--epochs',default = 1000, type = int)
+    parser.add_argument('--epochs',default = 1500, type = int)
 
     args = vars(parser.parse_args())
     args["init_lr"] = (args["batch_size"]/256)*args["base_lr"]
@@ -85,7 +85,7 @@ def train(model,criterion,optimizer,data_loader,writer,args):
             
         save_checkpoint(model,optimizer, is_best, epoch,epoch_loss,filename=filename)
         
-        if(epoch == 0 or epoch == 400 or epoch == 700):
+        if(epoch == 900 or epoch == 1200):
             save_checkpoint(model,optimizer,False,epoch,epoch_loss,f"checkpoint_ep_{epoch}.pth.tar")
         
         print(f"Epoch: {epoch}, Loss: {epoch_loss}")

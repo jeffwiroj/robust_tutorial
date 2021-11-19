@@ -17,10 +17,10 @@ from barlow_twin.bt import BarlowTwin
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-def get_model(use_best = False,use_sched = False):
+def get_model(filename = ""):
     
     
-    filename = "model_best.pth.tar" if use_best else "checkpoint.pth.tar"
+    filename = "checkpoint.pth.tar" if len(filename) == 0 else filename
     checkpoint  = torch.load(f"results/checkpoints/{filename}",map_location=device)
     bt_ = BarlowTwin()
     bt_.load_state_dict(checkpoint['model_state_dict'])
@@ -34,8 +34,9 @@ def get_model(use_best = False,use_sched = False):
 def get_config():
     parser = argparse.ArgumentParser(description='Supervised Training')
     parser.add_argument('--lr',default = 0.05,type = float, help = 'Learning Rate')
-    parser.add_argument('--wd',default = 1e-5,type = float, help = 'Weight Decay')
+    parser.add_argument('--wd',default =  0.0001,type = float, help = 'Weight Decay')
     parser.add_argument('--epochs',default = 200, type = int)
+    parser.add_argument('--filename',default = "", type = str)
     return parser.parse_args()
 
 
