@@ -1,0 +1,15 @@
+**/__pycache__/
+data/*
+!data/.gitkeep
+
+#Supervised Exp Files
+supervised_exp/fully_sup/results/*
+!supervised_exp/fully_sup/results/.gitkeep
+supervised_exp/imagenet/results/*
+!supervised_exp/imagenet/results/.gitkeep
+
+bt_exp/results/*
+!bt_exp/results/.gitkeep
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*

@@ -20,7 +20,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 def get_model(filename = ""):
     
     
-    filename = "checkpoint.pth.tar" if len(filename) == 0 else filename
+    filename = "checkpoint.pth.tar" if len(filename) == 0  else filename
     checkpoint  = torch.load(f"results/checkpoints/{filename}",map_location=device)
     bt_ = BarlowTwin()
     bt_.load_state_dict(checkpoint['model_state_dict'])

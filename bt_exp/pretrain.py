@@ -23,9 +23,9 @@ def get_config():
                     help='path to latest checkpoint (default: none)')
     parser.add_argument('--batch_size',default = 512,type = int, help = 'Batch Size')
     parser.add_argument('--base_lr',default = 0.05,type = int, help = 'base learning rate')
-    parser.add_argument('--wd',default =1e-5,type = float, help = 'Weight Decay')
+    parser.add_argument('--wd',default =8e-6,type = float, help = 'Weight Decay')
     parser.add_argument('--lambda',default = 5e-3,type = float, help = 'BT Lambda Parameter')
-    parser.add_argument('--epochs',default = 1000, type = int)
+    parser.add_argument('--epochs',default = 900, type = int)
 
     args = vars(parser.parse_args())
     args["init_lr"] = (args["batch_size"]/256)*args["base_lr"]
@@ -44,7 +44,17 @@ def save_checkpoint(model,optimizer, is_best, epoch,loss,filename='checkpoint.pt
         best_file = 'model_best.pth.tar'
         shutil.copyfile(f"results/checkpoints/{filename}", f"results/checkpoints/{best_file}")
         
-
+def load_checkpoint(model,optimizer,resume):
+    
+    path = f"results/checkpoints/{resume}"
+    checkpoint = torch.load(path,map_location = device)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    epoch = checkpoint['epoch']
+ 
+    print(f"Resume Training: Cur Epoch: {epoch}  Path:{path}")
+    
+    return epoch
 def train(model,criterion,optimizer,data_loader,writer,args):
     '''
     Trains BarlowTwin Model
@@ -58,7 +68,7 @@ def train(model,criterion,optimizer,data_loader,writer,args):
     model.train()
     
     best_loss = 100000
-    start_epoch = 0
+    start_epoch = args["start_epoch"]
     
     for epoch in range(start_epoch, epochs):
         epoch_loss = 0
@@ -102,6 +112,10 @@ def main():
     config = get_config()
     
     print(f"Current Configuration: {config}")
+
+        
+    
+    
     
     
     writer = SummaryWriter(log_dir = "results/log_dir")
@@ -114,7 +128,9 @@ def main():
     model = model.to(device)
     criterion = BTLoss(l_param = config["lambda"])
     optimizer = optim.SGD(model.parameters(), lr = config["init_lr"],weight_decay = config["wd"],momentum=0.9)
-
+    if(len(config["resume"]) > 0):
+        ep = load_checkpoint(model,optimizer, config["resume"])
+        config["start_epoch"] = ep
     train(model,criterion,optimizer,ssl_loader,writer,config)
     writer.close()
 if __name__ == "__main__":
