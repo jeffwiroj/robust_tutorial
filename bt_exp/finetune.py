@@ -25,8 +25,6 @@ def get_model(filename = ""):
     bt_ = BarlowTwin()
     bt_.load_state_dict(checkpoint['model_state_dict'])
     backbone = bt_.backbone
-    #for param in backbone.parameters():
-        #param.requires_grad = False
     model = nn.Sequential(backbone,nn.Flatten(),nn.Linear(512,9))
     return model
 
@@ -36,7 +34,8 @@ def get_config():
     parser.add_argument('--lr',default = 0.05,type = float, help = 'Learning Rate')
     parser.add_argument('--wd',default =  0.0001,type = float, help = 'Weight Decay')
     parser.add_argument('--epochs',default = 200, type = int)
-    parser.add_argument('--filename',default = "", type = str)
+    parser.add_argument('--filename',default = "", type = str, help = "checkpoint of bt_pretrain")
+    parser.add_argument('--save_name',default = "best_bt.pth", type = str, help = "checkpoint of bt_pretrain")
     return parser.parse_args()
 
 
@@ -109,7 +108,8 @@ def train_n_val(model,optimizer,criterion,train_loader,val_loader,writer,config)
         if(val_acc > best_acc):
             print(f"Achieved New Best Acc: {val_acc}")
             best_acc = val_acc
-            torch.save(model.state_dict(), "results/checkpoints/best_bt.pth")
+            save_name = config["save_name"]
+            torch.save(model.state_dict(), f"results/checkpoints/{save_name}")
         best_loss = min(val_loss,best_loss)
  
         print(f"Epoch: {epoch}, Train Acc: {train_acc},  Train Loss: {train_loss}")
@@ -154,8 +154,8 @@ def main():
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr= config["lr"],weight_decay = config["wd"],momentum=0.9)
     train_n_val(model,optimizer,criterion,train_loader,val_loader,writer,config)
-    
-    model.load_state_dict(torch.load("results/checkpoints/best_bt.pth"))
+    save_name = config["save_name"]
+    model.load_state_dict(torch.load(f"results/checkpoints/{save_name}"))
     test_acc,test_loss = val(model,criterion,test_loader)
     
     print(f"Test Acc: {test_acc}")

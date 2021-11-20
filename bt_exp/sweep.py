@@ -10,16 +10,14 @@ from barlow_twin.bt import BarlowTwin
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-def get_model(use_best = False,use_sched = False):
+def get_model(filename = ""):
     
     
-    filename = "model_best.pth.tar" if use_best else "checkpoint.pth.tar"
+    filename = "checkpoint.pth.tar" if len(filename) == 0  else filename
     checkpoint  = torch.load(f"results/checkpoints/{filename}",map_location=device)
     bt_ = BarlowTwin()
     bt_.load_state_dict(checkpoint['model_state_dict'])
     backbone = bt_.backbone
-    #for param in backbone.parameters():
-        #param.requires_grad = False
     model = nn.Sequential(backbone,nn.Flatten(),nn.Linear(512,9))
     return model
     
