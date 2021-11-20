@@ -25,25 +25,25 @@ class BT_Transform():
             T_transforms.RandomHorizontalFlip(p=0.5),
             T_transforms.RandomApply([T_transforms.ColorJitter(0.4,0.4,0.2,0.1)], p=0.8),
             T_transforms.RandomGrayscale(p=0.2),
-            Solarization(p=0.2),
-            T_transforms.RandomApply([T_transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 2.0))], p=0.2),
+            Solarization(p=0.0),
+            T_transforms.RandomApply([T_transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 1.5))], p=1.0),
             T_transforms.ToTensor(),
             T_transforms.Normalize(mean = mean, std = std)
         ])
-#         self.transform_prime = T_transforms.Compose([
-#             T_transforms.ToPILImage(),
-#             T_transforms.RandomResizedCrop(image_size, scale=(0.2, 1.0)),
-#             T_transforms.RandomHorizontalFlip(),
-#             T_transforms.RandomApply([T_transforms.ColorJitter(0.4,0.4,0.2,0.1)], p=0.8),
-#             T_transforms.RandomGrayscale(p=0.2),
-#             Solarization(p=0.2),
-#             T_transforms.RandomApply([T_transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 2.0))], p=0.1),
-#             T_transforms.ToTensor(),
-#             T_transforms.Normalize(mean = mean, std = std)
+        self.transform_prime = T_transforms.Compose([
+            T_transforms.ToPILImage(),
+            T_transforms.RandomResizedCrop(image_size, scale=(0.2, 1.0)),
+            T_transforms.RandomHorizontalFlip(),
+            T_transforms.RandomApply([T_transforms.ColorJitter(0.4,0.4,0.2,0.1)], p=0.8),
+            T_transforms.RandomGrayscale(p=0.2),
+            Solarization(p=0.2),
+            T_transforms.RandomApply([T_transforms.GaussianBlur(kernel_size=3, sigma=(0.1, 2.0))], p=0.1),
+            T_transforms.ToTensor(),
+            T_transforms.Normalize(mean = mean, std = std)
 #         ])
     def __call__(self, x):
         x1 = self.transform(x)
-        x2 = self.transform(x)
+        x2 = self.transform_prime(x)
         return x1, x2 
     
 class pathDataset(Dataset):

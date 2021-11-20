@@ -23,9 +23,9 @@ def get_config():
                     help='path to latest checkpoint (default: none)')
     parser.add_argument('--batch_size',default = 512,type = int, help = 'Batch Size')
     parser.add_argument('--base_lr',default = 0.05,type = int, help = 'base learning rate')
-    parser.add_argument('--wd',default =1e-5,type = float, help = 'Weight Decay')
+    parser.add_argument('--wd',default =8e-6,type = float, help = 'Weight Decay')
     parser.add_argument('--lambda',default = 5e-3,type = float, help = 'BT Lambda Parameter')
-    parser.add_argument('--epochs',default = 1000, type = int)
+    parser.add_argument('--epochs',default = 900, type = int)
 
     args = vars(parser.parse_args())
     args["init_lr"] = (args["batch_size"]/256)*args["base_lr"]

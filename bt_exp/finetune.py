@@ -17,10 +17,10 @@ from barlow_twin.bt import BarlowTwin
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-def get_model(filename = ""):
+def get_model(epoch = -1):
     
     
-    filename = "checkpoint.pth.tar" if len(filename) == 0 else filename
+    filename = "checkpoint.pth.tar" if epoch == -1  else f"checkpoint_ep_{epoch}.pth.tar"
     checkpoint  = torch.load(f"results/checkpoints/{filename}",map_location=device)
     bt_ = BarlowTwin()
     bt_.load_state_dict(checkpoint['model_state_dict'])
