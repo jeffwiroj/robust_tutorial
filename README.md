@@ -1,12 +1,15 @@
 # This repo contains the code for the final project of UCSD DSC 291
 
+## Accompanying write-up https://cotton-lightning-28a.notion.site/Pre-Training-CNNs-and-Its-Effect-on-Robustness-in-Healthcare-55b5b55b39004c8db91de153c1bd25fc
+
+
 ## We explore different pretraining strategies and their effects to robustness of a CNN for pathology classification
 - We consider three sets of weights (1) Barlow Twins pretrained weights, (2) Image-net pretrained weights, and (3) random initialization (no pretraining)
 - We used resnet34 as the backbone network.
 
 ## Dataset 
 - We used the pathmnist dataset, which is a sub-dataset of the [medmnist](https://medmnist.com/). To be able to run our code, please download the data from [zenodo](https://zenodo.org/record/5208230)
-and select the pathmnist file.
+and select the pathmnist file. Put the downloaded data in the file called data
 
 ## Experiment Setup
 - We split the training dataset randomly into two, one called train_set, and the other called unlabel_set. The unlabel set contains 90% of the original training dataset, in which
@@ -24,5 +27,5 @@ then train.py
 | Pretrain Method | Test Accuracy on Clean Images (%)|
 | --------------- | ----------------- |
 | None | 70.1 |
-| Barlow Twin | 74.8 |
+| Barlow Twin | 78.6 |
 | ImageNet | 82.9 |
