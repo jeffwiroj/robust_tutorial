@@ -11,5 +11,5 @@ supervised_exp/imagenet/results/*
 bt_exp/results/*
 !bt_exp/results/.gitkeep
 
-.ipynb_checkpoints
-*/.ipynb_checkpoints/*
+
+**/*.ipynb_checkpoints/

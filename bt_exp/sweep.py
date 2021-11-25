@@ -10,9 +10,8 @@ from barlow_twin.bt import BarlowTwin
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-def get_model(epoch = -1):
-    
-    
+def get_model(epoch = 800):
+        
     filename = "checkpoint.pth.tar" if epoch == -1  else f"checkpoint_ep_{epoch}.pth.tar"
     checkpoint  = torch.load(f"results/checkpoints/{filename}",map_location=device)
     bt_ = BarlowTwin()
@@ -59,11 +58,11 @@ def main():
             
             #First train only on fc layers, then unfreeze
             if(config["unfreeze"]):
-                train_n_val(model,optimizer,criterion,train_loader,val_loader,8)
+                train_n_val(model,optimizer,criterion,train_loader,val_loader,5)
                 unfreeze(model)
                 
             
-            acc,loss = train_n_val(model,optimizer,criterion,train_loader,val_loader,12)
+            acc,loss = train_n_val(model,optimizer,criterion,train_loader,val_loader,8)
             
             print(f"Current Config: LR = {cur_lr}  WD = {cur_wd} Acc:{acc} Loss: {loss} ")
             

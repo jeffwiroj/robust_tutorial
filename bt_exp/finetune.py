@@ -17,15 +17,16 @@ from barlow_twin.bt import BarlowTwin
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-def get_model(epoch = -1):
+def get_model(filename = ""):
     
     
-    filename = "checkpoint.pth.tar" if epoch == -1  else f"checkpoint_ep_{epoch}.pth.tar"
+    filename = "checkpoint.pth.tar" if len(filename) == 0  else filename
     checkpoint  = torch.load(f"results/checkpoints/{filename}",map_location=device)
     bt_ = BarlowTwin()
     bt_.load_state_dict(checkpoint['model_state_dict'])
     backbone = bt_.backbone
     model = nn.Sequential(backbone,nn.Flatten(),nn.Linear(512,9))
+    print(f"Loaded model from: {filename}")
     return model
 
 
@@ -36,9 +37,18 @@ def get_config():
     parser.add_argument('--epochs',default = 200, type = int)
     parser.add_argument('--filename',default = "", type = str, help = "checkpoint of bt_pretrain")
     parser.add_argument('--save_name',default = "best_bt.pth", type = str, help = "checkpoint of bt_pretrain")
+    parser.add_argument('--freeze',default = False, type = bool, help = "Whether to freeze earlier layers or not")
     return parser.parse_args()
 
-
+def freeze(model):
+    for param in model.parameters():
+        param.requires_grad = False
+    for param in model[2].parameters():
+        param.requires_grad = True
+        
+def unfreeze(model):
+    for param in model.parameters():
+         param.requires_grad = True
 
 
 def val(model,criterion,val_loader):
@@ -71,9 +81,18 @@ def train_n_val(model,optimizer,criterion,train_loader,val_loader,writer,config)
    
     epochs,lr = config["epochs"],config["lr"]
    
-    
+    if(config["freeze"]):
+        freeze(model)
+        print("Freezing Model")
+        
     best_acc,best_loss = 0,1000
     for epoch in range(epochs):
+        
+        if(epoch == 15):
+            if(config["freeze"]):
+                unfreeze(model)
+                print("Unfreezing Model")
+        
         train_acc,train_loss = 0,0
         total,correct = 0,0
         model.train()
