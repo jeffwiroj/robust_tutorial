@@ -1,0 +1,16 @@
+GaussianBlur(kernel_size=(3, 3), sigma=(0.2, 0.2)) acc:0.8288300835654596, loss:1.1071952342987061
+GaussianBlur(kernel_size=(3, 3), sigma=(0.4, 0.4)) acc:0.8254874651810585, loss:1.1906658371289571
+GaussianBlur(kernel_size=(3, 3), sigma=(0.6, 0.6)) acc:0.7540389972144846, loss:1.7857905467351276
+GaussianBlur(kernel_size=(3, 3), sigma=(0.8, 0.8)) acc:0.6477715877437326, loss:2.69502379099528
+GaussianBlur(kernel_size=(3, 3), sigma=(1.0, 1.0)) acc:0.5987465181058496, loss:3.2920626640319823
+
+AddGaussianNoise(mean=0, std=0.05) acc:0.8197771587743733, loss:1.1212431033452352
+AddGaussianNoise(mean=0, std=0.07) acc:0.8069637883008357, loss:1.14355312983195
+AddGaussianNoise(mean=0, std=0.09) acc:0.7864902506963788, loss:1.1926074981689452
+AddGaussianNoise(mean=0, std=0.13) acc:0.732033426183844, loss:1.421940044562022
+AddGaussianNoise(mean=0, std=0.15) acc:0.6972144846796657, loss:1.6178119063377385
+<utils.transformations.Brightness object at 0x14cee7aee430> acc:0.797075208913649, loss:1.312945342063904
+<utils.transformations.Brightness object at 0x14cee7aee2e0> acc:0.7417827298050139, loss:1.754343589146932
+<utils.transformations.Brightness object at 0x14cee7aee2b0> acc:0.6813370473537604, loss:2.387293330828349
+<utils.transformations.Brightness object at 0x14cee7aee400> acc:0.41434540389972147, loss:6.171416664123535
+<utils.transformations.Brightness object at 0x14cee7ab1070> acc:0.07841225626740947, loss:10.760177167256675

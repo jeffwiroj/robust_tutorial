@@ -88,7 +88,7 @@ def train_n_val(model,optimizer,criterion,train_loader,val_loader,writer,config)
     best_acc,best_loss = 0,1000
     for epoch in range(epochs):
         
-        if(epoch == 15):
+        if(epoch == 20):
             if(config["freeze"]):
                 unfreeze(model)
                 print("Unfreezing Model")
@@ -168,7 +168,7 @@ def main():
     val_loader =  DataLoader(dataset['val_set'], batch_size=512,shuffle = False, pin_memory = True,num_workers = 4)
     test_loader = DataLoader(dataset['test_set'], batch_size=512,shuffle = False, pin_memory = True,num_workers = 4)
 
-    model = get_model()
+    model = get_model(config["filename"])
     model = model.to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr= config["lr"],weight_decay = config["wd"],momentum=0.9)
