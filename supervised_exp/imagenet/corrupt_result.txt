@@ -9,8 +9,20 @@ AddGaussianNoise(mean=0, std=0.07) acc:0.8069637883008357, loss:1.14355312983195
 AddGaussianNoise(mean=0, std=0.09) acc:0.7864902506963788, loss:1.1926074981689452
 AddGaussianNoise(mean=0, std=0.13) acc:0.732033426183844, loss:1.421940044562022
 AddGaussianNoise(mean=0, std=0.15) acc:0.6972144846796657, loss:1.6178119063377385
-<utils.transformations.Brightness object at 0x14cee7aee430> acc:0.797075208913649, loss:1.312945342063904
-<utils.transformations.Brightness object at 0x14cee7aee2e0> acc:0.7417827298050139, loss:1.754343589146932
-<utils.transformations.Brightness object at 0x14cee7aee2b0> acc:0.6813370473537604, loss:2.387293330828349
-<utils.transformations.Brightness object at 0x14cee7aee400> acc:0.41434540389972147, loss:6.171416664123535
-<utils.transformations.Brightness object at 0x14cee7ab1070> acc:0.07841225626740947, loss:10.760177167256675
+
+<utils.transformations.ShotNoise object at 0x14c7a1001490> acc:0.6724233983286908, loss:1.8027509371439618
+<utils.transformations.ShotNoise object at 0x14c7a1001340> acc:0.6295264623955432, loss:2.0301805019378665
+<utils.transformations.ShotNoise object at 0x14c7a1001310> acc:0.5653203342618385, loss:2.510970187187195
+<utils.transformations.ShotNoise object at 0x14c7a1001460> acc:0.5185236768802228, loss:2.831871398289998
+<utils.transformations.ShotNoise object at 0x14c7a0fc40d0> acc:0.44958217270194983, loss:3.377849920590718
+
+<utils.transformations.Brightness object at 0x147831dbd4c0> acc:0.797075208913649, loss:1.312945342063904
+<utils.transformations.Brightness object at 0x147831dbd370> acc:0.5984679665738162, loss:3.4293578147888177
+<utils.transformations.Brightness object at 0x147831dbd340> acc:0.3168523676880223, loss:7.553258450826009
+<utils.transformations.Brightness object at 0x147831dbd490> acc:0.2406685236768802, loss:10.412914466857911
+<utils.transformations.Brightness object at 0x147831d80100> acc:0.19972144846796658, loss:11.640268262227378
+fgsm epsilon:0.0001 acc:0.827158774373259
+fgsm epsilon:0.001 acc:0.8094707520891364
+fgsm epsilon:0.005 acc:0.7381615598885793
+fgsm epsilon:0.01 acc:0.6435933147632312
+fgsm epsilon:0.1 acc:0.22715877437325904

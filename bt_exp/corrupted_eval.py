@@ -17,8 +17,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 from utils.transformations import get_transformations
 from finetune import val
 import torchvision.transforms as T
-
 import random
+from utils.adversarial import epsilons,test_fgsm
 def get_model(filename = ""):
     
     
@@ -43,8 +43,8 @@ def main():
     config = get_config()
     print(config)
     model = get_model(config.filename)
-    
-    corrupt_trans = get_transformations[config.method]
+    model.eval()
+    if(config.method != "fgsm"):corrupt_trans = get_transformations[config.method]
     if(config.method == "blur"):
         blurs = [corrupt_trans(3,i/10) for i in range(2,12,2)]
         for blur in blurs:
@@ -83,7 +83,7 @@ def main():
                 f.write(f"{noise} acc:{test_acc}, loss:{test_loss}\n")
     
     
-    if(config.method == "bright"):
+    if(config.method == "bright" or config.method == "shot"):
         noises = [corrupt_trans(i) for i in range(1,6)]
         for noise in noises:
             torch.manual_seed(0)
@@ -100,6 +100,21 @@ def main():
     
             with open('corrupt_result.txt', 'a') as f:
                 f.write(f"{noise} acc:{test_acc}, loss:{test_loss}\n")
+    if(config.method == "fgsm"):
+        for epsilon in epsilons:
+            torch.manual_seed(0)
+            random.seed(0)
+            transforms = T.Compose([T.ToPILImage(),T.ToTensor(), 
+            T.Normalize(mean = [0.7405, 0.5330, 0.7058],std = [0.1237, 0.1768, 0.1244])])
+            dataset = pathDataset(root_dir = "../data", split = "test", transform = transforms)
+            dataloader = DataLoader(dataset, batch_size=512,shuffle = False, pin_memory = True,num_workers = 4)
+   
+            total,correct = test_fgsm(model,dataloader,device,epsilon)
+            
+            print(f"FGSM epsilon:{epsilon} acc:{correct/total}")
+    
+            with open('corrupt_result.txt', 'a') as f:
+                f.write(f"fgsm epsilon:{epsilon} acc:{correct/total}\n")
     
 
 if __name__ == "__main__":

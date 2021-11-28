@@ -8,8 +8,22 @@ AddGaussianNoise(mean=0, std=0.07) acc:0.692200557103064, loss:1.857329042752583
 AddGaussianNoise(mean=0, std=0.09) acc:0.6837047353760446, loss:1.8821653525034585
 AddGaussianNoise(mean=0, std=0.13) acc:0.670891364902507, loss:1.9606468478838603
 AddGaussianNoise(mean=0, std=0.15) acc:0.6639275766016713, loss:2.016188736756643
-<utils.transformations.Brightness object at 0x14fb711b6430> acc:0.6582172701949861, loss:2.065347544352213
-<utils.transformations.Brightness object at 0x14fb711b62e0> acc:0.61991643454039, loss:2.420849895477295
-<utils.transformations.Brightness object at 0x14fb711b62b0> acc:0.5203342618384401, loss:3.3152431646982827
-<utils.transformations.Brightness object at 0x14fb711b6400> acc:0.25793871866295265, loss:8.591704877217612
-<utils.transformations.Brightness object at 0x14fb71179070> acc:0.04596100278551532, loss:30.070677057902014
+
+<utils.transformations.ShotNoise object at 0x14a51753b490> acc:0.5896935933147632, loss:2.6473599354426063
+<utils.transformations.ShotNoise object at 0x14a51753b340> acc:0.5649025069637883, loss:2.944016265869141
+<utils.transformations.ShotNoise object at 0x14a51753b310> acc:0.5249303621169916, loss:3.3539526462554927
+<utils.transformations.ShotNoise object at 0x14a51753b460> acc:0.49623955431754874, loss:3.730912224451701
+<utils.transformations.ShotNoise object at 0x14a5174fe0d0> acc:0.45153203342618387, loss:4.385104529062907
+
+fgsm epsilon:0.0001 acc:0.6997214484679666
+fgsm epsilon:0.001 acc:0.6841225626740947
+fgsm epsilon:0.005 acc:0.6246518105849582
+fgsm epsilon:0.01 acc:0.5589136490250697
+fgsm epsilon:0.1 acc:0.17688022284122562
+
+
+<utils.transformations.Brightness object at 0x15462e5d2580> acc:0.6582172701949861, loss:2.065347544352213
+<utils.transformations.Brightness object at 0x15462e5d2430> acc:0.4097493036211699, loss:4.567970784505207
+<utils.transformations.Brightness object at 0x15462e5d2400> acc:0.22562674094707522, loss:10.487238184611003
+<utils.transformations.Brightness object at 0x15462e5d2550> acc:0.11406685236768803, loss:15.710795466105143
+<utils.transformations.Brightness object at 0x15462e594820> acc:0.09415041782729805, loss:25.41608390808105

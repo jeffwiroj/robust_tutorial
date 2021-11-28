@@ -1,11 +1,25 @@
-GaussianBlur(kernel_size=(3, 3), sigma=(0.2, 0.2)) acc:0.7855153203342619, loss:10.27054532368978GaussianBlur(kernel_size=(3, 3), sigma=(0.4, 0.4)) acc:0.7838440111420613, loss:10.26865579287211GaussianBlur(kernel_size=(3, 3), sigma=(0.6, 0.6)) acc:0.7207520891364902, loss:14.22333869934082GaussianBlur(kernel_size=(3, 3), sigma=(0.8, 0.8)) acc:0.6678272980501393, loss:19.452697308858234GaussianBlur(kernel_size=(3, 3), sigma=(1.0, 1.0)) acc:0.6396935933147633, loss:22.372788238525395AddGaussianNoise(mean=0, std=0.05) acc:0.7676880222841226, loss:12.256145350138347
+GaussianBlur(kernel_size=(3, 3), sigma=(0.2, 0.2)) acc:0.7855153203342619, loss:10.27054532368978GaussianBlur(kernel_size=(3, 3), sigma=(0.4, 0.4)) acc:0.7838440111420613, loss:10.26865579287211GaussianBlur(kernel_size=(3, 3), sigma=(0.6, 0.6)) acc:0.7207520891364902, loss:14.22333869934082GaussianBlur(kernel_size=(3, 3), sigma=(0.8, 0.8)) acc:0.6678272980501393, loss:19.452697308858234GaussianBlur(kernel_size=(3, 3), sigma=(1.0, 1.0)) acc:0.6396935933147633, 
+loss:22.372788238525395
+
+AddGaussianNoise(mean=0, std=0.05) acc:0.7676880222841226, loss:12.256145350138347
 AddGaussianNoise(mean=0, std=0.07) acc:0.7346796657381616, loss:15.634640630086263
 AddGaussianNoise(mean=0, std=0.09) acc:0.6881615598885794, loss:21.82003300984701
 AddGaussianNoise(mean=0, std=0.13) acc:0.5798050139275766, loss:47.496918233235675
 AddGaussianNoise(mean=0, std=0.15) acc:0.53008356545961, loss:66.86329930623373
-<utils.transformations.Brightness object at 0x14ab0e1b6610> acc:0.7654596100278551, loss:11.345012362798055
-<utils.transformations.Brightness object at 0x14ba1769ddc0> acc:0.7654596100278551, loss:11.345012362798055
-<utils.transformations.Brightness object at 0x14b93c1e2910> acc:0.7331476323119778, loss:12.888488705952964
-<utils.transformations.Brightness object at 0x14b93c1e28b0> acc:0.6910863509749303, loss:17.46173534393311
-<utils.transformations.Brightness object at 0x14b93c1e2850> acc:0.5161559888579387, loss:37.15032094319662
-<utils.transformations.Brightness object at 0x14b93c1e27f0> acc:0.09832869080779945, loss:570.108809407552
+
+<utils.transformations.ShotNoise object at 0x1498fd092e20> acc:0.34860724233983287, loss:228.0213348388672
+<utils.transformations.ShotNoise object at 0x149821bd6970> acc:0.3066852367688022, loss:269.177968343099
+<utils.transformations.ShotNoise object at 0x149821bd6910> acc:0.25250696378830084, loss:327.69087320963547
+<utils.transformations.ShotNoise object at 0x149821bd68b0> acc:0.22479108635097492, loss:380.7359822591146
+<utils.transformations.ShotNoise object at 0x149821bd6850> acc:0.20710306406685236, loss:451.8983154296875
+
+<utils.transformations.Brightness object at 0x15465fa00e50> acc:0.7654596100278551, loss:11.345012362798055
+<utils.transformations.Brightness object at 0x1545839d5f70> acc:0.6559888579387186, loss:19.889728546142578
+<utils.transformations.Brightness object at 0x1545839d5f10> acc:0.4360724233983287, loss:52.637954203287755
+<utils.transformations.Brightness object at 0x1545846f41c0> acc:0.2352367688022284, loss:137.3770782470703
+<utils.transformations.Brightness object at 0x1545839940a0> acc:0.10167130919220056, loss:439.7791910807293
+fgsm epsilon:0.0001 acc:0.7823119777158775
+fgsm epsilon:0.001 acc:0.7469359331476323
+fgsm epsilon:0.005 acc:0.6508356545961003
+fgsm epsilon:0.01 acc:0.5746518105849582
+fgsm epsilon:0.1 acc:0.40167130919220057

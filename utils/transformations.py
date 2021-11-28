@@ -19,7 +19,7 @@ class AddGaussianNoise(object):
 # Taken from 
 # https://github.com/hendrycks/robustness/blob/master/ImageNet-C/imagenet_c/imagenet_c/corruptions.py
 def brightness(x, severity=1):
-    c = [.01, .02, .03, .07,1][severity - 1]
+    c = [.01, .04, .09, .15,0.3][severity - 1]
 
     x = np.array(x) / 255.
     x = sk.color.rgb2hsv(x)
@@ -41,7 +41,7 @@ class Brightness():
 
 
 def shot_noise(x, severity=1):
-    c = [120,100,80,60,40][severity - 1]
+    c = [500,400,300,250,200][severity - 1]
 
     x = np.array(x) / 255.
     return np.clip(np.random.poisson(x * c) / float(c), 0, 1) * 255

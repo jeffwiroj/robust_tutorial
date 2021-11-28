@@ -17,6 +17,7 @@ sys.path.append('../../')
 from utils.transformations import get_transformations
 from finetune import val
 import torchvision.transforms as T
+from utils.adversarial import epsilons, test_fgsm
 
 def get_model():
     model = models.resnet34(False)
@@ -35,8 +36,8 @@ def main():
     config = get_config()
     print(config)
     model = get_model()
-    
-    corrupt_trans = get_transformations[config.method]
+    if(config.method != "fgsm"):
+        corrupt_trans = get_transformations[config.method]
     if(config.method == "blur"):
         blurs = [corrupt_trans(3,i/10) for i in range(2,12,2)]
         for blur in blurs:
@@ -92,7 +93,21 @@ def main():
             with open('corrupt_result.txt', 'a') as f:
                 f.write(f"{noise} acc:{test_acc}, loss:{test_loss}\n")
     
-                
+    if(config.method == "fgsm"):
+        for epsilon in epsilons:
+            torch.manual_seed(0)
+            random.seed(0)
+            transforms = T.Compose([T.ToPILImage(),T.ToTensor(), 
+            T.Normalize(mean = [0.485, 0.456, 0.406],std = [0.229, 0.224, 0.225])])
+            dataset = pathDataset(root_dir = "../../data", split = "test", transform = transforms)
+            dataloader = DataLoader(dataset, batch_size=512,shuffle = False, pin_memory = True,num_workers = 4)
+   
+            total,correct = test_fgsm(model,dataloader,device,epsilon)
+            
+            print(f"FGSM epsilon:{epsilon} acc:{correct/total}")
+    
+            with open('corrupt_result.txt', 'a') as f:
+                f.write(f"fgsm epsilon:{epsilon} acc:{correct/total}\n")    
 if __name__ == "__main__":
     main()
     
